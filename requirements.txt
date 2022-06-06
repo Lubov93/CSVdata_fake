@@ -1,0 +1,4 @@
+Django==4.0.5
+celery==5.2.7
+redis
+flower==1.0.0

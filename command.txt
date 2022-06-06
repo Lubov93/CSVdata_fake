@@ -1,0 +1,3 @@
+# Run Celery
+#     celery -A core worker --loglevel=info
+#  celery -A core flower --loglevel=info
