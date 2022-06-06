@@ -1,0 +1,41 @@
+{% extends 'data/base.html' %}
+
+
+{% block content %}
+ {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <p> {{ error }} </p>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+	<div class="container">
+        <div class="row mt-4">
+            <form method="POST" action="" class="form-inline">
+                {% csrf_token %}
+                {{ data_form.as_p }}
+
+                <hr>
+                <div id="form-container">
+	                {{ formset.management_form }}
+	                {% for forms in formset %}
+	                <div class="row schema-form mt-3">
+	                	{% for field in forms.visible_fields %}
+	                    <div class="form-group col">
+	                        <label class="form-label">{{ field.label }}</label>
+	                        {{ field }}
+	                    </div>
+	                   	{% endfor %}
+	                   	<button class=" mt-4 btn btn-danger btn-sm col-md remove-form" type="button">Delete</button>
+
+	                </div>
+	                {% endfor %}
+	                <button id="add-form" class="btn btn-secondary mt-2" type="button">Add Another column</button>
+	                <button class="btn btn-info mt-2" type="submit">Create</button>
+	            </div>
+    		</form>
+    	</div>
+    </div>
+{% endblock %}
+
