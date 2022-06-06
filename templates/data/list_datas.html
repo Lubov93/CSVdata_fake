@@ -1,0 +1,48 @@
+{% extends "data/base.html" %}
+{% block content %}
+
+<div class="container">
+        <div class="row mt-4">
+
+            <h3>CSV GENERATOR</h3>
+            <a class="btn btn-primary col-md-3" href="#">Create new data</a>
+
+            <table class="table mt-3">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Modified</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in datas %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="#">{{ data.name }}</a></td>
+                        <td>{{ data.created_at }}</td>
+                        <td>
+                             <span>
+                                <a class="btn btn-warning" href="#">Edit</a>
+                            </span>
+                            <span>
+                                    <a class="btn btn-danger" href="#">Delete</a>
+                            </span>
+
+
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+            {% if datas.count == 0 %}
+            	<h4>No data yet....</h4>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}
