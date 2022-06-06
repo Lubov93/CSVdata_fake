@@ -3,3 +3,5 @@ celery==5.2.7
 redis
 flower==1.0.0
 whitenoise==6.2.0
+faker
+celery-progress==0.1.2

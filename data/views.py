@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from data.forms import DataForm, ColumnFormset
+from data.forms import DataForm, ColumnFormset, DataRowsForm
 from data.models import Data, DataColumn
+from data.tasks import create_csv
 
 
 @login_required
@@ -47,3 +48,24 @@ def create_data(request):
 
     context = {'data_form': data_form, 'formset': formset}
     return render(request, 'data/create.html', context)
+
+
+@login_required
+def data_view(request, id):
+    """Display a list of created csv files and their status"""
+    data = Data.objects.get(id=id)
+    form = DataRowsForm(request.POST or None)
+
+    if request.method == 'POST':
+        rows = int(request.POST.get('rows'))
+
+        generating_task = create_csv.delay(data.id, rows)
+
+        task_id = generating_task.task_id
+
+        context = {'data': data, 'form': form, 'task_id': task_id}
+        return render(request, 'data/view_data.html', context)
+    else:
+        form = DataRowsForm()
+    context = {'data': data, 'form': form}
+    return render(request, 'data/view_data.html', context)

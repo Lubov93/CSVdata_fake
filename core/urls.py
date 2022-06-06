@@ -6,7 +6,8 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('data.urls'))
+    path('', include('data.urls')),
+    path('celery-progress/', include('celery_progress.urls')),
 ]
 
 if settings.DEBUG:

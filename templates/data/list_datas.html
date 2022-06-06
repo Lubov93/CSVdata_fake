@@ -20,7 +20,7 @@
                 {% for data in datas %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td><a href="#">{{ data.name }}</a></td>
+                        <td><a href="{% url 'data:data_view' data.id %}">{{ data.name }}</a></td>
                         <td>{{ data.created_at }}</td>
                         <td>
                              <span>
